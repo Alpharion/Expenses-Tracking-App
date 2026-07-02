@@ -44,14 +44,14 @@ export async function fetchDBSEmails(accessToken: string): Promise<EmailData[]> 
         emails.push({
             email_id: msg.id!,
             email_date: extractHeader(detail.data.payload?.headers, "Date") ?? "",
-            email_subject: extractHeaders(detail.data.payload?.headers, "Subject") ?? "",
-            email_body: extractBody(detail.data.payload),
+            email_subject: extractHeader(detail.data.payload?.headers, "Subject") ?? "",
+            email_body: detail.data.payload ? extractBody(detail.data.payload) : "",
         })
     }
     return emails
 }
 
-function extractHeaders(
+function extractHeader(
     headers: { name?: string | null; value?: string | null}[] | undefined,
     name: string
 ): string | null {
