@@ -26,3 +26,9 @@ export interface Transaction extends ParsedTransaction {
     id: string,
     created_at: Date
 }
+
+export interface FilterState {
+    month: string,
+    category: Category | "",
+    type: TransactionType | ""
+}
