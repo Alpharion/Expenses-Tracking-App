@@ -28,7 +28,7 @@ export default function Home() {
     if (filters.type)     params.set("type", filters.type);
     const res = await fetch(`/api/transactions?${params}`);
     const data = await res.json();
-    setTransactions(data);
+    if (Array.isArray(data)) setTransactions(data);
     setLoading(false);
   }
 

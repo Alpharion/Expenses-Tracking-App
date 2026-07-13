@@ -58,6 +58,14 @@ function extractHeader(
     return headers?.find(h => h.name === name)?.value ?? null
 }
 
+export function stripHtml(html: string): string {
+    return html
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+}
+
 function extractBody(payload: gmail_v1.Schema$MessagePart): string {
     if (!payload) return ""
     if (payload.body?.data) {

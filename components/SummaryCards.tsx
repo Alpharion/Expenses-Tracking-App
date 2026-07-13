@@ -2,12 +2,13 @@
 import type { Transaction } from '@/lib/types'
 
 export default function SummaryCards({trans}: {trans: Transaction[]}) {
-    const inflow = trans.filter(t => t.type === "inflow")
-                        .map(t => t.transaction_amount)
-                        .reduce((prev, curr) => prev + curr, 0)
-    const outflow = trans.filter(t => t.type === "outflow")
-                         .map(t => t.transaction_amount)
-                         .reduce((prev, curr) => prev + curr, 0)
+    if (!Array.isArray(trans)) return null
+    const inflow = trans
+        .filter(t => t.type === "inflow")
+        .reduce((sum, t) => sum + Number(t.transaction_amount), 0)
+    const outflow = trans
+        .filter(t => t.type === "outflow")
+        .reduce((sum, t) => sum + Number(t.transaction_amount), 0)
     const net = inflow - outflow
 
     return (
